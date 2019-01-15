@@ -7,9 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/game.css">
     <script src="js/common.js"></script>
+    <script src="js/config.js"></script>
 </head>
 <body>
     <h1>扫雷</h1>
+    <div class="level">
+        <button type="button" name="button" class="level-btn level-1" level="1">初级</button>
+        <button type="button" name="button" class="level-btn level-2" level="2">中级</button>
+        <button type="button" name="button" class="level-btn level-3" level="3">高级</button>
+    </div>
     <div class="game-box">
 
         <!-- <ul class="row">
@@ -18,6 +24,19 @@
             </li>
         </ul> -->
         
+    </div>
+    <div class="info">
+        <p class="">
+            剩余雷数 :
+            <span class="remain">0</span>
+        </p>
+        <p>
+            时间 :
+            <span class="time">0</span> S
+        </p>
+    </div>
+    <div class="sub">
+        <button type="button" name="button" class="restart">重新开始</button>
     </div>
     <script src="js/game.js"></script>
     

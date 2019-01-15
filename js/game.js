@@ -1,7 +1,3 @@
-var side_length = 10//边长
-var mine_num = 10 //雷的数目
-var clean_mine_num = 0 //已清的雷数
-
 // 复制一个 square
 var clonedSquare = function(array) {
     var s = []
@@ -126,6 +122,7 @@ var markedSquare = function(array) {
 
 //生成html
 var drawHtml = function(square){
+    //生成雷的页面
     var box = document.querySelector('.game-box')
     var html = ''
     for (let i = 0; i < square.length; i++) {
@@ -139,13 +136,20 @@ var drawHtml = function(square){
             html += `
             <li class="col" data-x="${i}" data-y="${j}" data-num="${n}" id="x-${i}-y-${j}">
                 <span>${n}</span>
-                <img src="img/flag.svg" class="img-flag hide">
+                <img src="img/flag.png" class="img-flag hide">
             </li>
             `   
         }
         html += `</ul>`
     }
     box.innerHTML = html
+
+}
+
+// 更新剩余雷数
+var updateRemainMine = function() {
+    var remain = document.querySelector('.remain')
+    remain.innerText = `${remain_mine_num}`
 }
 
 //判断是否成功
@@ -254,9 +258,12 @@ var markMine = function() {
                 // 已经被点击过的地方不能标记
                 if (classList.contains('hide') && el.style.background !== 'white') {
                     classList.remove('hide')
+                    remain_mine_num--
                 } else if (el.style.background !== 'white') {
                     classList.add('hide')
+                    remain_mine_num++
                 }
+                updateRemainMine()
             }
             // log('el', el)
         });
@@ -264,19 +271,59 @@ var markMine = function() {
     }
 }
 
-//开始
-var begin = function(){
-    cleanMine()
-    markMine()
+//计时
+var stopTime
+var setTime = function(){
+    var time = document.querySelector('.time')
+    time.innerText = `0`
+    var i = 1
+    clearInterval(stopTime)
+    stopTime = setInterval(function () {
+        time.innerText = `${i++}`
+    }, 1000)
 }
 
-var __main = function() {
-    // 这是主函数
+
+//点击等级事件
+var levelEvent = function() {
+    var level = document.querySelectorAll('.level-btn')
+    for (var i = 0; i < level.length; i++) {
+        level[i].addEventListener('click', function (event) {
+            var level = parseInt(event.target.getAttribute('level')) 
+            side_length = level_config[level]['side_length']
+            mine_num = level_config[level]['mine_num']
+            clean_mine_num = 0 
+            remain_mine_num = mine_num
+            init()
+        })
+    }
+}
+
+//重新开始
+var restartEvent = function() {
+    var restart_btn = document.querySelector('.restart')
+    restart_btn.addEventListener('click', function(event){
+        init()
+    })
+}
+
+//开始
+var init = function(){
     var square = blankSquare(side_length)
     square = writeInMine(square, mine_num)
     square = markedSquare(square)
     drawHtml(square)
-    begin()
+    updateRemainMine()
+    cleanMine()
+    markMine()
+    setTime()
+}
+
+var __main = function() {
+    // 这是主函数
+    init()
+    levelEvent()
+    restartEvent()
 }
 
 __main()
