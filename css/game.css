@@ -1,0 +1,51 @@
+body {
+    text-align: center;
+    position: relative;
+}
+
+.game-box {
+    margin-top: 30px;
+}
+.row{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    letter-spacing: -8px;
+}
+.col{
+    display: inline-block;
+    background: rgba(86, 56, 9, 0.41);
+    border: 1px solid rgb(129, 129, 129);
+    margin: 1.5px;
+    width: 23px;
+    height: 23px;
+    letter-spacing: normal;
+    position: relative;
+}
+
+.col span {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    opacity: 0;
+    font-weight: bold;
+    /* 标准箭头 */
+    cursor:default;
+}
+
+.img-flag {
+    position: absolute;
+    top: 3px;
+    left: 3.5px;
+    width: 18px;
+    height: 18px;
+}
+
+.hide {
+    display: none;
+}
+
+.boom {
+    background: url('../img/boom.svg') no-repeat 2.5px 2px;
+    background-size: 18px 18px;
+}
